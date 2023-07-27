@@ -13,8 +13,11 @@ const header = () => {
         <Image src="/images/lpse-node.png" height="35" width="40" alt="logo" />
         <span className="pt-1 pl-2 text-2xl">SPPD LPSE</span>
       </div>
-      <div>
-        <FaBars className="cursor-pointer" />
+      <div className="flex justify-center items-center gap-3">
+        <div onClick={toggle} className="lg:hidden">
+          <FaBars className="cursor-pointer" />
+        </div>
+        <div>User</div>
       </div>
     </div>
   );
