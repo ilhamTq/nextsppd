@@ -13,24 +13,28 @@ const Sidebar = () => {
     const { open } = useContext(MenuContext);
   return (
     <div>
-        <motion.aside className={`bg-white rounded-lg overflow-hidden transition-all duration-100 drop-shadow ${open ? "w-80 p-3 mr-5" : "w-0" } lg:w-80 lg:p-3 lg:mr-5`}>
+        <motion.aside className={`bg-white rounded-lg overflow-hidden transition-all duration-100 drop-shadow ${open ? "w-72 p-3 mr-5" : "w-0" } lg:w-72 lg:p-3 lg:mr-5`}>
           <ul>
-            <li className="flex justify-start items-center hover:bg-slate-50 hover:text-blue-800 rounded-xl p-2">
+            <li className="flex justify-start items-center hover:bg-slate-50 hover:text-blue-800 rounded-xl p-2 cursor-pointer">
+              <Link href="/" className={" flex justify-start items-center link "}>
               <AiOutlineHome size={20} className="mr-2" />
-              <Link href="/" className={"link"}>Dashboard</Link>
+                Dashboard
+              </Link>
             </li>
 
-            <li className="flex justify-start items-center hover:bg-blue-50 hover:text-blue-800 rounded-xl p-2">
+            <li className="flex justify-start items-center hover:bg-blue-50 hover:text-blue-800 rounded-xl p-2 cursor-pointer">
+              <h3 href="/" className={"flex-1 flex justify-start items-center link "}>
               <TbUsers size={20} className="mr-2" />
-              <h3 href="/" className={"flex-1 link"}>
                 Pegawai
               </h3>
               <FaAngleUp />
             </li>
 
-            <li className="flex justify-start items-center hover:bg-blue-50 hover:text-blue-800 rounded-xl p-2">
+            <li className="hover:bg-blue-50 hover:text-blue-800 rounded-xl p-2 cursor-pointer">
+              
+              <Link href="/user" className={" flex justify-start items-center link "}>
               <AiOutlineUser size={20} className="mr-2" />
-              <Link href="/user" className={"link"}>User</Link>
+              User</Link>
             </li>
           </ul>
         </motion.aside>

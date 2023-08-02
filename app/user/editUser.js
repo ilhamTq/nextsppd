@@ -2,11 +2,11 @@
 import { useState, SyntheticEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import {MdOutlinePersonAddAlt1} from "react-icons/md"
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
-const AddUser = ({ user }) => {
+const EditUser = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState( user );
 
   const handleModal = () => {
     setIsOpen(!isOpen);
@@ -16,12 +16,11 @@ const AddUser = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post("/api/users", inputs).then((res) => {
+    axios.patch(`/api/users/${user.id}`, inputs).then((res) => {
         console.log(res);
       }).catch((err) => {
         console.log(err);
       }).finally(() => {
-        setInputs({});
         router.refresh();
         setIsOpen(false);
       });
@@ -46,15 +45,15 @@ const AddUser = ({ user }) => {
 
   return (
     <div>
-      <button className="btn btn-sm bg-sky-600 hover:bg-blue-500 text-white normal-case" onClick={handleModal}>
-        Add <MdOutlinePersonAddAlt1 size={20} />
+      <button className="btn text-white bg-green-400 hover:bg-green-500 duration-300 btn-sm" onClick={handleModal}>
+        <HiOutlinePencilSquare size={20} />
       </button>
       <div
         className={isOpen ? "modal mt-0 pt-0 modal-open fixed" : "modal mt-0 pt-0 fixed"}
       >
         <div className="modal-box fixed flex flex-col my-0 h-max pt-3">
-          <form onSubmit={handleSubmit} className="w-full">
-          <h3 className="font-bold text-lg pb-3 mt-0">Add User</h3>
+          <h3 className="font-bold text-lg text-black pb-3 mt-0">Edit User</h3>
+          <form onSubmit={handleSubmit} className="w-full text-black">
             <div className="form-control w-full">
               <input
                 type="text"
@@ -125,4 +124,4 @@ const AddUser = ({ user }) => {
   );
 };
 
-export default AddUser;
+export default EditUser;

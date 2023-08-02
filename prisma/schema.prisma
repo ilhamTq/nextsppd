@@ -11,10 +11,16 @@ datasource db {
 }
 
 model User {
-  id_user  Int    @id @default(autoincrement())
-  nama     String @db.VarChar(25)
+  id       Int    @id @default(autoincrement())
+  nama     String @db.VarChar(255)
   email    String @db.VarChar(255)
   telp     String @db.VarChar(20)
   username String @db.VarChar(255)
   password String @db.VarChar(255)
+}
+
+model Pegawai {
+  id     Int    @id @default(autoincrement())
+  nama   String @db.VarChar(50)
+  alamat String @db.VarChar(100)
 }
