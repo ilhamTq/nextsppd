@@ -19,8 +19,123 @@ model User {
   password String @db.VarChar(255)
 }
 
+// model Latjabatan {
+//   id      Int       @id @default(autoincrement())
+//   nama    String    @db.VarChar(100)
+//   Pegawai Pegawai[]
+// }
+
+// model Jenispdd {
+//   id      Int       @id @default(autoincrement())
+//   nama    String    @db.VarChar(100)
+//   Pegawai Pegawai[]
+// }
+
+// model Jurusan {
+//   id      Int       @id @default(autoincrement())
+//   nama    String    @db.VarChar(100)
+//   Pegawai Pegawai[]
+// }
+
 model Pegawai {
-  id     Int    @id @default(autoincrement())
-  nama   String @db.VarChar(50)
-  alamat String @db.VarChar(100)
+  id         Int      @id @default(autoincrement())
+  nip        String   @db.VarChar(100)
+  nama       String   @db.VarChar(50)
+  // alamat       String     @db.VarChar(100)
+  // telp         String     @db.VarChar(100)
+  tmptlahir  String   @db.VarChar(100)
+  tgllahir   DateTime @db.Date
+  golongan   Golongan @relation(fields: [idGolongan], references: [id])
+  idGolongan Int
+  // tmtGolongan  DateTime   @db.Date
+  jabatan    Jabatan  @relation(fields: [idJabatan], references: [id])
+  idJabatan  Int
+  // tmtJabatan   DateTime   @db.Date
+  // masaKerja    DateTime   @db.Date
+  // latJabatan   Latjabatan @relation(fields: [idLatjabatan], references: [id])
+  // idLatjabatan Int
+  // jenispdd     Jenispdd   @relation(fields: [idJenispdd], references: [id])
+  // idJenispdd   Int
+  // jurusan      Jurusan    @relation(fields: [idJurusan], references: [id])
+  // idJurusan    Int
+  // tahunlulus   DateTime   @db.Date
+  agama      String   @db.VarChar(100)
+  // tahunLatjab  DateTime
+  Pjspt      Pjspt[]
+  Spt        Spt[]
+}
+
+model Golongan {
+  id      Int       @id @default(autoincrement())
+  nama    String    @db.VarChar(100)
+  ruang   String    @db.VarChar(100)
+  Pegawai Pegawai[]
+  Pjsppd  Pjsppd[]
+}
+
+model Jabatan {
+  id      Int       @id @default(autoincrement())
+  nama    String    @db.VarChar(100)
+  Pegawai Pegawai[]
+}
+
+model Pjspt {
+  id        Int     @id @default(autoincrement())
+  pegawai   Pegawai @relation(fields: [idPegawai], references: [id])
+  idPegawai Int
+  Spt       Spt[]
+}
+
+model Spt {
+  id          Int      @id @default(autoincrement())
+  nospt       String   @db.VarChar(100)
+  tglspt      DateTime @db.Date
+  berangkat   DateTime @db.Date
+  kembali     DateTime @db.Date
+  lama        String   @db.VarChar(100)
+  dari        String   @db.VarChar(100)
+  tujuan      String   @db.VarChar(100)
+  angkutan    String   @db.VarChar(100)
+  keperluan   String   @db.Text()
+  anggaran    String   @db.VarChar(255)
+  mt_anggaran String   @db.VarChar(255)
+  // mtanggaran String @db.VarChar(255)
+  //tempat ditetapkan
+  tempat      String   @db.VarChar(100)
+  pjspt       Pjspt    @relation(fields: [idPjspt], references: [id])
+  idPjspt     Int
+  pegawai     Pegawai  @relation(fields: [idPegawai], references: [id])
+  idPegawai   Int
+  pjsppd      Pjsppd   @relation(fields: [idPjsppd], references: [id])
+  idPjsppd    Int
+  Sppd        Sppd[]
+}
+
+model Pjsppd {
+  id         Int      @id @default(autoincrement())
+  nip        String   @db.VarChar(255)
+  nama       String   @db.VarChar(100)
+  jabatan    String   @db.VarChar(255)
+  golongan   Golongan @relation(fields: [idGolongan], references: [id])
+  idGolongan Int
+  Spt        Spt[]
+}
+
+model Sppd {
+  id      Int      @id @default(autoincrement())
+  nosppd  String   @db.VarChar(100)
+  idSpt   Int
+  spt     Spt      @relation(fields: [idSpt], references: [id])
+  tglsppd DateTime @db.Date
+  Biaya   Biaya[]
+}
+
+model Biaya {
+  id              Int  @id @default(autoincrement())
+  biaya_berangkat Int  @db.Integer()
+  biaya_kembali   Int  @db.Integer()
+  uang_saku       Int  @db.Integer()
+  penginapan      Int  @db.Integer()
+  sppd            Sppd @relation(fields: [idSppd], references: [id])
+  idSppd          Int
 }

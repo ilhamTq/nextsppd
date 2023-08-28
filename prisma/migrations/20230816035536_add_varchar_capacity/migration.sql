@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Pjsppd" ALTER COLUMN "jabatan" SET DATA TYPE VARCHAR(255);

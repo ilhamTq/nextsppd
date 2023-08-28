@@ -1,31 +1,26 @@
 import AddUser from "./addUser";
 import DeleteUser from "./deleteUser";
 import EditUser from "./editUser";
+// import Generate from "./generate";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function getUser() {
-  const res = await fetch("http://localhost:3000/api/users", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Gagal mengambil data");
-  }
-
-  return res.json();
+  return await prisma.user.findMany();
 }
 
 const User = async () => {
   const users = await getUser();
   return (
     <div className="bg-white rounded-lg mr-2 p-2 outline-purple-950 drop-shadow h-max">
-      <h3 className="text-3xl">User</h3>
-      <div className="mb-2 ">
-        <AddUser />
+      <div className="justify-between items-center flex p-2">
+        <h3 className="text-3xl ">User</h3>
+        <div className="mb-2 z-50 justify-between items-center flex h-fit">
+          <AddUser />
+        </div>
       </div>
       <div className="overflow-auto rounded-lg shadow">
-        <table className="w-full">
+        <table className="w-full overflow-auto">
           <thead className="bg-gray-50 border-b-2 border-gray-200">
             <tr>
               <th className="p-2 text-sm font-semibold tracking-wide text-left">
@@ -67,8 +62,9 @@ const User = async () => {
                   {user.username}
                 </td>
                 <td className="justify-start items-center flex">
-                  <EditUser user={user}/>
-                  <DeleteUser user={user}/>
+                  {/* <Generate user={user} /> */}
+                  <EditUser user={user} />
+                  <DeleteUser user={user} />
                 </td>
               </tr>
             ))}

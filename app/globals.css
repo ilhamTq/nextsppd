@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .link {
-  @apply w-full h-full flex rounded-md items-center md:cursor-pointer cursor-default duration-300 font-medium no-underline;
+  @apply w-full h-full flex rounded-md items-center md:cursor-pointer cursor-default duration-300 no-underline;
 }
 
 .active {
