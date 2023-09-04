@@ -7,7 +7,7 @@ moment.locale("id");
 
 const View = ({ sppd }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // console.log(pegawai);
+  // console.log(sppd);
   const handleModal = () => {
     setIsOpen(!isOpen);
   };

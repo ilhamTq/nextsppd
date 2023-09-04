@@ -9,9 +9,7 @@ const downloadPDF = ({ spt }) => {
   const generate = () => {
     // const doc = new jsPDF("l", "mm", [210, 330]);
     const doc = new jsPDF("p");
-    const splitText = doc.splitTextToSize(
-      `${spt.pjspt.pegawai.jabatan.nama}`,
-      80
+    const splitText = doc.splitTextToSize(`${spt.pjspt.pegawai.jabatan.nama}`, 80
     );
 
     // doc.addImage("/images/spt.png", "png", 23, 30, 32, 32);

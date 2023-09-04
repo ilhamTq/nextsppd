@@ -1,10 +1,10 @@
-import React from "react";
+import MainLayout from "@/components/MainLayout";
 export const metadata = {
   title: "Surat Perintah Perjalanan Dinas",
 };
 
 const Sppdlayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <MainLayout>{children}</MainLayout>;
 };
 
 export default Sppdlayout;

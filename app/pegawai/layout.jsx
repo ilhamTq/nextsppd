@@ -1,11 +1,11 @@
-import React from "react";
+import MainLayout from "@/components/MainLayout";
 
 export const metadata = {
   title: "Pegawai",
 };
 
 const Pegawailayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <MainLayout>{children}</MainLayout>;
 };
 
 export default Pegawailayout;

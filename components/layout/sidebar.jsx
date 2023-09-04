@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { motion } from "framer-motion";
 import { useState, useContext } from "react";
 import { MenuContext } from "@/context/MenuContext";
@@ -12,6 +12,8 @@ import { LiaIdCard, LiaMoneyCheckSolid } from "react-icons/lia";
 import { BiSpreadsheet } from "react-icons/bi";
 import { MdOutlineVerified } from "react-icons/md";
 import { GoSignOut } from "react-icons/go";
+
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const { opens } = useContext(MenuContext);
@@ -78,22 +80,10 @@ const Sidebar = () => {
       path: "/sppd",
     },
     {
-      id: 10,
-      title: "Kwitansi",
-      icon: <LiaMoneyCheckSolid size={18} className="mr-2" />,
-      path: "#",
-    },
-    {
       id: 11,
       title: "User",
       icon: <AiOutlineUser size={18} className="mr-2" />,
       path: "/user",
-    },
-    {
-      id: 12,
-      title: "Logout",
-      icon: <GoSignOut size={18} className="mr-2" />,
-      path: "#",
     },
   ];
 
@@ -153,6 +143,14 @@ const Sidebar = () => {
               )}
             </>
           ))}
+          <div className="flex px-2 justify-start items-center hover:bg-slate-50 hover:text-blue-800 rounded-xl pt-2 pb-4 cursor-pointer">
+            <button
+              onClick={() => signOut()}
+              className="flex justify-start items-center"
+            >
+              <GoSignOut size={18} className="mr-2" /> Logout
+            </button>
+          </div>
         </ul>
       </motion.aside>
     </div>

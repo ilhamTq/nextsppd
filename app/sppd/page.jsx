@@ -2,11 +2,12 @@ import AddSppd from "./addSppd";
 import DeleteSppd from "./deleteSppd";
 import EditSppd from "./editSppd";
 import { PrismaClient } from "@prisma/client";
-// import Generate from "./view/generate";
 import View from "./view";
 import moment from "moment";
 import PaginationSppd from "@/components/PaginationControls/PaginationSppd";
-import Link from "next/link";
+// import Link from "next/link";
+// import Biaya from "./biaya/old-pageroute";
+import BiayaPerjalanan from "./biaya/page";
 import "moment/locale/id";
 moment.locale("id");
 const prisma = new PrismaClient();
@@ -50,9 +51,31 @@ async function getSpt() {
   });
 }
 
+async function getBiaya() {
+  return await prisma.biaya.findMany({
+    include: {
+      sppd: {
+        include: {
+          spt: {
+            include: {
+              pegawai: {
+                include: {
+                  golongan: true,
+                  jabatan: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}
 const Sppd = async ({ searchParams }) => {
   const sppdinass = await getSppd();
   const sptugas = await getSpt();
+  const biayaa = await getBiaya();
+  // console.log(biayaa);
   // console.log;
   const page = searchParams["page"] ?? "1";
   const per_page = searchParams["per_page"] ?? "7";
@@ -89,8 +112,6 @@ const Sppd = async ({ searchParams }) => {
               <th className="p-3 text-sm font-semibold tracking-wide text-left">
                 Aksi
               </th>
-              <th className="p-3 text-sm font-semibold tracking-wide text-left">
-              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -113,23 +134,31 @@ const Sppd = async ({ searchParams }) => {
                   <View sppd={sppd} />
                   <EditSppd sppd={sppd} sptugas={sptugas} />
                   <DeleteSppd sppd={sppd} />
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  <Link href="/sppd/biaya">
+
+                  {/* <Biaya biayaa={biayaa}/> */}
+
+                  {/* <Link href={`/sppd/biaya/${biayaa.id}`}>
                     <button className="btn btn-sm bg-sky-600 hover:bg-blue-500 text-white normal-case">
                       Biaya Perjalanan
                     </button>
-                  </Link>
+                  </Link> */}
+
+                  <BiayaPerjalanan biayaa={biayaa} sppd={sppd} />
                 </td>
+                {/* <Link href={{ pathname: "/sppd/biaya", query: { biayaa } }}>
+                    <button className="btn btn-sm bg-sky-600 hover:bg-blue-500 text-white normal-case">
+                      Biaya Perjalanan
+                    </button>
+                  </Link> */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <PaginationSppd
-          hasNextPage={end < sppdinass.length}
-          hasPrevPage={start > 0}
-        />
+        hasNextPage={end < sppdinass.length}
+        hasPrevPage={start > 0}
+      />
     </div>
   );
 };

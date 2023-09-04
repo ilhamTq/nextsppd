@@ -12,10 +12,9 @@ datasource db {
 
 model User {
   id       Int    @id @default(autoincrement())
-  nama     String @db.VarChar(255)
-  email    String @db.VarChar(255)
-  telp     String @db.VarChar(20)
-  username String @db.VarChar(255)
+  name     String @db.VarChar(255)
+  email    String @unique
+  username String @unique
   password String @db.VarChar(255)
 }
 
@@ -45,10 +44,10 @@ model Pegawai {
   // telp         String     @db.VarChar(100)
   tmptlahir  String   @db.VarChar(100)
   tgllahir   DateTime @db.Date
-  golongan   Golongan @relation(fields: [idGolongan], references: [id])
+  golongan   Golongan @relation(fields: [idGolongan], references: [id], onDelete: Cascade)
   idGolongan Int
   // tmtGolongan  DateTime   @db.Date
-  jabatan    Jabatan  @relation(fields: [idJabatan], references: [id])
+  jabatan    Jabatan  @relation(fields: [idJabatan], references: [id], onDelete: Cascade)
   idJabatan  Int
   // tmtJabatan   DateTime   @db.Date
   // masaKerja    DateTime   @db.Date
@@ -81,7 +80,7 @@ model Jabatan {
 
 model Pjspt {
   id        Int     @id @default(autoincrement())
-  pegawai   Pegawai @relation(fields: [idPegawai], references: [id])
+  pegawai   Pegawai @relation(fields: [idPegawai], references: [id], onDelete: Cascade)
   idPegawai Int
   Spt       Spt[]
 }
@@ -102,11 +101,11 @@ model Spt {
   // mtanggaran String @db.VarChar(255)
   //tempat ditetapkan
   tempat      String   @db.VarChar(100)
-  pjspt       Pjspt    @relation(fields: [idPjspt], references: [id])
+  pjspt       Pjspt    @relation(fields: [idPjspt], references: [id], onDelete: Cascade)
   idPjspt     Int
-  pegawai     Pegawai  @relation(fields: [idPegawai], references: [id])
+  pegawai     Pegawai  @relation(fields: [idPegawai], references: [id], onDelete: Cascade)
   idPegawai   Int
-  pjsppd      Pjsppd   @relation(fields: [idPjsppd], references: [id])
+  pjsppd      Pjsppd   @relation(fields: [idPjsppd], references: [id], onDelete: Cascade)
   idPjsppd    Int
   Sppd        Sppd[]
 }
@@ -116,7 +115,7 @@ model Pjsppd {
   nip        String   @db.VarChar(255)
   nama       String   @db.VarChar(100)
   jabatan    String   @db.VarChar(255)
-  golongan   Golongan @relation(fields: [idGolongan], references: [id])
+  golongan   Golongan @relation(fields: [idGolongan], references: [id], onDelete: Cascade)
   idGolongan Int
   Spt        Spt[]
 }
@@ -125,7 +124,7 @@ model Sppd {
   id      Int      @id @default(autoincrement())
   nosppd  String   @db.VarChar(100)
   idSpt   Int
-  spt     Spt      @relation(fields: [idSpt], references: [id])
+  spt     Spt      @relation(fields: [idSpt], references: [id], onDelete: Cascade)
   tglsppd DateTime @db.Date
   Biaya   Biaya[]
 }
@@ -136,6 +135,33 @@ model Biaya {
   biaya_kembali   Int  @db.Integer()
   uang_saku       Int  @db.Integer()
   penginapan      Int  @db.Integer()
-  sppd            Sppd @relation(fields: [idSppd], references: [id])
+  sppd            Sppd @relation(fields: [idSppd], references: [id], onDelete: Cascade)
   idSppd          Int
 }
+
+// model Account {
+//   id                String  @id @default(cuid())
+//   userId            Int
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String? @db.Text
+//   access_token      String  @db.Text
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String? @db.Text
+//   sesion_state      String?
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique
+//   userId       Int
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }

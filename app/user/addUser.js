@@ -31,6 +31,7 @@ const AddUser = ({ user }) => {
         router.refresh();
         setIsOpen(false);
       });
+      e.target.reset();
   };
 
   const handleChange = (e) => {
@@ -58,30 +59,22 @@ const AddUser = ({ user }) => {
                 type="text"
                 className="input input-bordered mb-3"
                 placeholder="Nama"
-                name="nama"
-                value={inputs.nama || ""}
+                name="name"
+                required
+                value={inputs.name || ""}
                 onChange={handleChange}
               />
             </div>
 
             <div className="form-control w-full">
               <input
-                type="text"
+                type="email"
                 className="input input-bordered mb-3"
                 placeholder="Email"
                 name="email"
+                autoComplete="email"
+                required
                 value={inputs.email || ""}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-control w-full">
-              <input
-                type="text"
-                className="input input-bordered mb-3"
-                placeholder="No. Telp"
-                name="telp"
-                value={inputs.telp || ""}
                 onChange={handleChange}
               />
             </div>
@@ -92,6 +85,8 @@ const AddUser = ({ user }) => {
                 className="input input-bordered mb-3"
                 placeholder="Username"
                 name="username"
+                autoComplete="username"
+                required
                 value={inputs.username || ""}
                 onChange={handleChange}
               />
@@ -103,6 +98,8 @@ const AddUser = ({ user }) => {
                 className="input input-bordered mb-3"
                 placeholder="Password"
                 name="password"
+                autoComplete="current-password"
+                required
                 value={inputs.password || ""}
                 onChange={handleChange}
               />

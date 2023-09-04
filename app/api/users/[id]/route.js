@@ -28,7 +28,7 @@ export const GET = async (request, { params }) => {
 export const PATCH = async (request, { params }) => {
   try {
     const body = await request.json();
-    const { nama, email, telp, username, password } = body;
+    const { name, email, username, password } = body;
 
     const { id } = params;
 
@@ -37,9 +37,8 @@ export const PATCH = async (request, { params }) => {
         id: Number(id),
       },
       data: {
-        nama,
+        name,
         email,
-        telp,
         username,
         password,
       },

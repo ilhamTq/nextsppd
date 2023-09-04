@@ -1,6 +1,8 @@
-import MainLayout from "@/components/MainLayout";
+// import MainLayout from "@/components/MainLayout";
 import "./globals.css";
-import MenuContextProvider from "@/context/MenuContext"
+import MenuContextProvider from "@/context/MenuContext";
+import { AuthProvider } from "./Providers";
+// import Provider from "@/context/Provider";
 
 export const metadata = {
   title: "SPPD LPSE",
@@ -10,11 +12,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* <Provider> */}
       <body>
         <MenuContextProvider>
-          <MainLayout>{children}</MainLayout>
+          
+            <AuthProvider>{children}</AuthProvider>
+          
         </MenuContextProvider>
       </body>
+      {/* </Provider> */}
     </html>
   );
 }

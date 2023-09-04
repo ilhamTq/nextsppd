@@ -63,7 +63,7 @@ const AddPegawai = ({ pegawaii, golongann, jabatann }) => {
             <div className="flex w-full">
               <div className="form-control w-full">
                 <input
-                  type="text"
+                  type="number"
                   className="input input-bordered mb-3"
                   placeholder="NIP"
                   name="nip"

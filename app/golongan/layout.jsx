@@ -1,10 +1,11 @@
+import MainLayout from "@/components/MainLayout";
 import React from "react";
 export const metadata = {
   title: "Golongan",
 };
 
 const Golonganlayout = ({ children }) => {
-  return <div>{children}</div>;
+  return <MainLayout>{children}</MainLayout>;
 };
 
 export default Golonganlayout;

@@ -59,8 +59,8 @@ const EditUser = ({ user }) => {
                 type="text"
                 className="input input-bordered mb-3"
                 placeholder="Nama"
-                name="nama"
-                value={inputs.nama || ""}
+                name="name"
+                value={inputs.name || ""}
                 onChange={handleChange}
               />
             </div>
@@ -72,17 +72,6 @@ const EditUser = ({ user }) => {
                 placeholder="Email"
                 name="email"
                 value={inputs.email || ""}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-control w-full">
-              <input
-                type="text"
-                className="input input-bordered mb-3"
-                placeholder="No. Telp"
-                name="telp"
-                value={inputs.telp || ""}
                 onChange={handleChange}
               />
             </div>

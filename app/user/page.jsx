@@ -1,3 +1,4 @@
+import PaginationUser from "@/components/PaginationControls/PaginationUser";
 import AddUser from "./addUser";
 import DeleteUser from "./deleteUser";
 import EditUser from "./editUser";
@@ -9,8 +10,16 @@ async function getUser() {
   return await prisma.user.findMany();
 }
 
-const User = async () => {
-  const users = await getUser();
+const User = async ({ searchParams }) => {
+  const userss = await getUser();
+
+  const page = searchParams["page"] ?? "1";
+  const per_page = searchParams["per_page"] ?? "7";
+
+  const start = (Number(page) - 1) * Number(per_page);
+  const end = start + Number(per_page);
+
+  const users = userss.slice(start, end);
   return (
     <div className="bg-white rounded-lg mr-2 p-2 outline-purple-950 drop-shadow h-max">
       <div className="justify-between items-center flex p-2">
@@ -33,9 +42,6 @@ const User = async () => {
                 Email
               </th>
               <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                Telp
-              </th>
-              <th className="p-3 text-sm font-semibold tracking-wide text-left">
                 Username
               </th>
               <th className="p-3 text-sm font-semibold tracking-wide text-left">
@@ -50,13 +56,10 @@ const User = async () => {
                   {index + 1}
                 </td>
                 <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  {user.nama}
+                  {user.name}
                 </td>
                 <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                   {user.email}
-                </td>
-                <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                  {user.telp}
                 </td>
                 <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                   {user.username}
@@ -71,6 +74,9 @@ const User = async () => {
           </tbody>
         </table>
       </div>
+      <PaginationUser 
+      hasNextPage={end < userss.length}
+      hasPrevPage={start > 0}/>
     </div>
   );
 };

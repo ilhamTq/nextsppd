@@ -4,9 +4,12 @@ import React, { useContext } from "react";
 import { MenuContext } from "@/context/MenuContext";
 import Image from "next/image";
 import { FaBars } from "react-icons/fa";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
   const { toggle } = useContext(MenuContext);
+  const { data: session } = useSession();
   return (
     <div className="bg-white flex justify-between items-center px-4 h-20 min-w-0 mb-4 drop-shadow pl-8 w-auto">
       <div className="flex justify-start">
@@ -17,7 +20,15 @@ const Header = () => {
         <div onClick={toggle} className="lg:hidden">
           <FaBars className="cursor-pointer" />
         </div>
-        <div className="pr-5">User</div>
+
+        {!session && (
+        <Link
+          className="btn btn-sm bg-accent hover:bg-accent-focus normal-case"
+          href="/sign-in"
+        >
+          Sign in
+        </Link>
+          )}
       </div>
     </div>
   );
